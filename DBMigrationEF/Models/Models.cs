@@ -4,22 +4,20 @@ using System.Collections.Generic;
 
 public class StoreContext : DbContext
 {
-    public DbSet<Products> Blogs { get; set; }
-   
+    public DbSet<Products> Product { get; set; }
+    public DbSet<Category> Category { get; set; }
 
     public string DbPath { get; }
 
     public StoreContext()
     {
-        var folder = Environment.SpecialFolder.LocalApplicationData;
-        var path = Environment.GetFolderPath(folder);
-        DbPath = System.IO.Path.Join(path, "Store.db");
+       
     }
 
     // The following configures EF to create a Sqlite database file in the
     // special "local" folder for your platform.
     protected override void OnConfiguring(DbContextOptionsBuilder options)
-        => options.UseSqlite($"Data Source={DbPath}");
+        => options.UseSqlServer("Server=localhost;Database=migrationDb;User Id=sa;Password=fuckth1sSh!t;Trusted_Connection=False;TrustServerCertificate=True;");
 }
 
 public class Products
@@ -27,4 +25,13 @@ public class Products
     public int Id { get; set; }
     public string Name { get; set; }
     public float Price { get; set; }
+}
+
+public class Category
+{
+    public int Id { get; set; }
+    
+    public string CategoryName { get; set; }
+
+    public virtual List<Products> ProductName { get; set; }
 }
