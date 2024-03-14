@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query.Internal;
 using System;
 using System.Collections.Generic;
 
@@ -6,6 +7,7 @@ public class StoreContext : DbContext
 {
     public DbSet<Products> Product { get; set; }
     public DbSet<Category> Category { get; set; }
+    public DbSet<Ratings> Ratings { get; set; }
 
     public string DbPath { get; }
 
@@ -25,6 +27,7 @@ public class Products
     public int Id { get; set; }
     public string Name { get; set; }
     public float Price { get; set; }
+    public virtual List<Ratings> Ratings { get; set; }
 }
 
 public class Category
@@ -34,4 +37,11 @@ public class Category
     public string CategoryName { get; set; }
 
     public virtual List<Products> ProductName { get; set; }
+}
+
+public class Ratings
+{
+    public int RatingsID { get; set; }
+    public float Rating { get; set; }
+
 }
